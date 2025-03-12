@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar bg-success">
+        <div class="container-fluid">
+          <a class="navbar-brand text-light fw-bold" href="#">
+            <img
+              src="https://fakestoreapi.com/icons/logo.png"
+              alt="Logo"
+              width="30"
+              height="24"
+              class="d-inline-block align-text-top fw-bolder fs-1"
+            />
+            FakeStore API
+          </a>
+        </div>
+      </nav>
+    </header>
+
+   
+    <section style="background-color: #ad655f; height: 100%;" >
+        <h1 class="text-center text-light fw-bold pt-5">COMMENTS</h1>
+      <div class="container my-5 py-5">
+        <div class="comment-heading">
+            <h4>Recent comments</h4>
+            <p class="fw-light">
+              Latest Comments section by users
+            </p>
+       </div>
+        <div class="row d-flex justify-content-center" id="result">
+          
+
+        </div>
+      </div>
+    </section>
+  </body>
+  <script>
+
+    
+    let ajax = new XMLHttpRequest();
+    ajax.open("get", "https://jsonplaceholder.typicode.com/comments");
+    ajax.send();
+    console.log(ajax.readyState);
+    ajax.onreadystatechange = () => {
+      console.log(ajax.readyState);
+      if (ajax.readyState == 4) {
+        console.log(ajax.status);
+        if(ajax.status>=200 && ajax.status<300){
+            console.log("res received");
+            console.log(ajax.responseText,typeof ajax.responseText);
+            let comments=JSON.parse(ajax.responseText)
+            console.log(comments);
+            alert("daaaataaaaa")
+            comments.length>0 && comments.forEach(item => {
+           
+              name_arr=item.email.split("@")
+              // console.log(name_arr);
+              avatar_link=`https://avatar.iran.liara.run/username?username=${name_arr[0]}+${name_arr[1]}`
+              console.log(avatar_link);
+                result.innerHTML +=`
+                <div class="col-md-12 col-lg-10">
+            <div class="card text-body rounded-0">
+              <div class="card-body p-4">
+               
+
+                <div class="d-flex flex-start">
+                  <img
+                    class="rounded-circle shadow-1-strong me-3"
+                    src=${avatar_link}
+                    alt="avatar"
+                    width="60"
+                    height="60"
+                  />
+                  <div>
+                    <h6 class="fw-bold mb-1">  ${item.name}</h6>
+                    <div class="d-flex align-items-center mb-3">
+                      <p class="mb-0">
+                      ${item.email}
+                        <span class="badge bg-primary">Pending</span>
+                      </p>
+                      <a href="#!" class="link-muted"
+                        ><i class="fas fa-pencil-alt ms-2"></i
+                      ></a>
+                      <a href="#!" class="link-muted"
+                        ><i class="fas fa-redo-alt ms-2"></i
+                      ></a>
+                      <a href="#!" class="link-muted"
+                        ><i class="fas fa-heart ms-2"></i
+                      ></a>
+                    </div>
+                    <p class="mb-0">
+                     ${item.body}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="my-0" style="height: 1px" />
+            </div>
+          </div>
+                
+                `
+                
+            });
+        }
+      } else {
+        console.log("No response from the server");
+      }
+    };
+  </script>
+</html>
