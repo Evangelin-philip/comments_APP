@@ -39,7 +39,7 @@
    
     <section style="background-color: #ad655f; height: 100%;" >
         <h1 class="text-center text-light fw-bold pt-5">COMMENTS</h1>
-      <div class="container my-5 py-5">
+      <div class="container my-2 ">
         <div class="comment-heading">
             <h4>Recent comments</h4>
             <p class="fw-light">
@@ -59,23 +59,23 @@
     let ajax = new XMLHttpRequest();
     ajax.open("get", "https://jsonplaceholder.typicode.com/comments");
     ajax.send();
-    console.log(ajax.readyState);
+    // console.log(ajax.readyState);
     ajax.onreadystatechange = () => {
-      console.log(ajax.readyState);
+      // console.log(ajax.readyState);
       if (ajax.readyState == 4) {
-        console.log(ajax.status);
+        // console.log(ajax.status);
         if(ajax.status>=200 && ajax.status<300){
-            console.log("res received");
-            console.log(ajax.responseText,typeof ajax.responseText);
+            // console.log("res received");
+            // console.log(ajax.responseText,typeof ajax.responseText);
             let comments=JSON.parse(ajax.responseText)
-            console.log(comments);
-            alert("daaaataaaaa")
+            // console.log(comments);
+            // alert("daaaataaaaa")
             comments.length>0 && comments.forEach(item => {
            
               name_arr=item.email.split("@")
               // console.log(name_arr);
               avatar_link=`https://avatar.iran.liara.run/username?username=${name_arr[0]}+${name_arr[1]}`
-              console.log(avatar_link);
+              // console.log(avatar_link);
                 result.innerHTML +=`
                 <div class="col-md-12 col-lg-10">
             <div class="card text-body rounded-0">
